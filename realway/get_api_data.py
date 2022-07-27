@@ -1,10 +1,9 @@
 # realway/get_api_data.py
 
-import time
+from realway.config import conf
 import requests
 import json
 from rich import print
-from config import conf
 import pathlib
 from datetime import datetime
 
@@ -14,19 +13,20 @@ url = conf["server"]["url"]
 city = conf["city"]
 
 def combination_all_city():
+    """Show all combination among all cities
+    """
+    all_list = []
     for i in iter(city):
         start = city[i]["name"]
         for j in iter(city):
             end = city[j]["name"]
             if not start == end:
-                start, end, res = get_api_data(start, end)
-                export_json_data(start, end, res)
-            else:
-                pass
+                all_list.append((start, end))
+    return all_list
+
 
 def get_api_data(start, end):
-    """
-    get all trips from start to end 
+    """get all trips from start to end 
     """
     t_args = {f"start": start, "end": end, "key": key}
     r = requests.post(f'{url}', params=t_args)
@@ -36,6 +36,8 @@ def get_api_data(start, end):
 
 
 def export_json_data(start, end, res):
+    """export api data to json file
+    """
     date_format = datetime.now().strftime("%Y-%m-%d_%H_%M_%S")
     json_file = "data/" + date_format + "_" + start + "_" + end +".json"
     path = pathlib.Path(__file__).parent / json_file
@@ -52,16 +54,10 @@ def show_api_data():
 
 
 def main():
-    for i in iter(city):
-        start = city[i]["name"]
-        for j in iter(city):
-            end = city[j]["name"]
-            if not start == end:
-                print(f"{start} -> {end}")
-                start, end, res = get_api_data(start, end)
-                export_json_data(start, end, res)
-            else:
-                pass
+    all_trip = combination_all_city()
+    for s,e in all_trip:
+        start, end, res = get_api_data(s,e)
+        export_json_data(start, end, res)
 
 if __name__ == "__main__":
     main()
