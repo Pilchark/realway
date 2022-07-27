@@ -2,20 +2,6 @@
 key = "9U2cUUZhHEqLZx5cx5G2owkd7"
 url = "https://binstd.apistd.com/train/station2s"
 
-[info]
-cities = [
-    {name = "北京", pinyin = "BeiJing"},
-    {name = "上海", pinyin = "ShangHai"},
-    {name = "广州", pinyin = "GuangZhou"},
-    {name = "深圳", pinyin = "ShenZhen"},
-    {name = "重庆", pinyin = "ChongQing"},
-    {name = "成都", pinyin = "ChengDu"},
-    {name = "苏州", pinyin = "Suzhou"},
-    {name = "杭州", pinyin = "HangZhou"},
-    {name = "南京", pinyin = "NanJing"},
-    {name = "武汉", pinyin = "WuHan"},
-]
-
 [city]
 BeiJing = {"name" = "北京", "pinyin" = "BeiJing"}
 ShangHai = {"name" = "上海", "pinyin" = "ShangHai"}
