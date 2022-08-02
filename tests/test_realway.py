@@ -1,4 +1,4 @@
-import pathlib
+import pathlib,os
 from realway import __version__
 from config import conf
 from realway.get_api_data import (
@@ -46,6 +46,7 @@ def test_data_store_path():
     valid_path = valid_path / file_format
     file_path = export_json_data("a","b","c")
     assert str(valid_path) == file_path
+    os.remove(file_path)
 
 def test_data_store_dir():
     """test if data store dir is "<project>/data/<date>/"
