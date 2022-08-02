@@ -1,8 +1,14 @@
+import pathlib
 from realway import __version__
-from realway.config import conf
-from realway.get_api_data import combination_all_city
+from config import conf
+from realway.get_api_data import (
+    combination_all_city,
+    export_json_data,
+    base_dir
+    )
 from pypinyin import lazy_pinyin
 from math import comb
+from datetime import datetime
 
 
 def test_version():
@@ -30,4 +36,21 @@ def test_all_combination_num():
     all_list_len = len(combination_all_city())
 
     assert city_num  == all_list_len
+
+def test_data_store_path():
+    """test if data store path is "<project>/data/<date>/file.json"
+    """
+    time = datetime.now().strftime("%Y-%m-%d")
+    valid_path = pathlib.Path(__file__).parent.parent / "data" / time
+    file_format = time + "_a_b.json"
+    valid_path = valid_path / file_format
+    file_path = export_json_data("a","b","c")
+    assert str(valid_path) == file_path
+
+def test_data_store_dir():
+    """test if data store dir is "<project>/data/<date>/"
+    """
+    time = datetime.now().strftime("%Y-%m-%d")
+    valid_path = pathlib.Path(__file__).parent.parent
+    assert str(valid_path) == base_dir
 

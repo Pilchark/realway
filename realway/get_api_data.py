@@ -1,11 +1,15 @@
 # realway/get_api_data.py
 
-from realway.config import conf
 import requests
 import json
-from rich import print
 import pathlib
 from datetime import datetime
+from rich import print
+import os
+
+from config import conf
+
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # config args
 key = conf["server"]["key"]
@@ -34,16 +38,31 @@ def get_api_data(start, end):
     res = json.loads(text)
     return start, end, res
 
+def get_all_api_data(list):
+    #TODOs
+    for s,e in list:
+        start, end, res = get_api_data(s,e)
+        export_json_data(start, end, res)
+
+
+
+
 
 def export_json_data(start, end, res):
     """export api data to json file
     """
-    date_format = datetime.now().strftime("%Y-%m-%d_%H_%M_%S")
-    json_file = "data/" + date_format + "_" + start + "_" + end +".json"
-    path = pathlib.Path(__file__).parent / json_file
-    with open(path, "w",encoding="utf-8") as f:
+    data_format = datetime.now().strftime("%Y-%m-%d")
+    folder = base_dir + "/data/" + data_format + "/"
+    if not os.path.exists(folder):
+        os.mkdir(folder)
+    else:
+        pass
+    file_path = folder + data_format + "_" + start + "_" + end +".json"
+    with open(file_path, "w",encoding="utf-8") as f:
         json.dump(res, f, ensure_ascii=False)
+    return file_path
 
+#TODO
 def show_api_data():
     json_file = "data/" + "2022-07-27_16_10_14" + ".json"
     path = pathlib.Path(__file__).parent / json_file
@@ -55,9 +74,7 @@ def show_api_data():
 
 def main():
     all_trip = combination_all_city()
-    for s,e in all_trip:
-        start, end, res = get_api_data(s,e)
-        export_json_data(start, end, res)
+    get_all_api_data(all_trip)
 
 if __name__ == "__main__":
     main()

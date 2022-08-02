@@ -15,4 +15,11 @@ Release History
   - 20220727
     - setup gitee repo, deploy daily auto obtaion api data.
     - add pytest : combination city nums.
-    
+
+  - 0802
+    - update export_json_data to date folder.
+    - add pytest data path and data folder.
+
+#TODO
+
+- [] multi thread get api data.
