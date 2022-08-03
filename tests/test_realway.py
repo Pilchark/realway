@@ -1,6 +1,6 @@
 import pathlib,os
 from realway import __version__
-from config import conf
+from realway.config import conf
 from realway.get_api_data import (
     combination_all_city,
     export_json_data,

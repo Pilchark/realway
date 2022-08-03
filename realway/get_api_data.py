@@ -3,13 +3,13 @@
 import requests
 import json
 import pathlib
+import os,sys
 from datetime import datetime
 from rich import print
-import os
-
-from config import conf
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(base_dir)
+from realway.config import conf
 
 # config args
 key = conf["server"]["key"]
@@ -43,10 +43,6 @@ def get_all_api_data(list):
     for s,e in list:
         start, end, res = get_api_data(s,e)
         export_json_data(start, end, res)
-
-
-
-
 
 def export_json_data(start, end, res):
     """export api data to json file
