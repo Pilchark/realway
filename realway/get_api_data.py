@@ -58,16 +58,6 @@ def export_json_data(start, end, res):
         json.dump(res, f, ensure_ascii=False)
     return file_path
 
-#TODO
-def show_api_data():
-    json_file = "data/" + "2022-07-27_16_10_14" + ".json"
-    path = pathlib.Path(__file__).parent / json_file
-    with open(path, "r",encoding="utf-8") as f:
-        data = json.load(f)
-        print(data["result"]["start"])
-        print(data["result"]["end"])
-
-
 def main():
     all_trip = combination_all_city()
     get_all_api_data(all_trip)
