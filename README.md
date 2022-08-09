@@ -20,6 +20,9 @@ Release History
     - update export_json_data to date folder.
     - add pytest data path and data folder.
 
+  - 0807
+    - add function export to mongodb
+
 #TODO
 
 - [] multi thread get api data.

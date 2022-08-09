@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    image: realway-tickets
+    command: poetry run python application.py
+    volumes:
+      - .:/code
+    ports:
+      - 5000:5000
+  data:
+    image: realway-tickets
+    command: poetry run python capture_congestion_data.py
+    volumes:
+      - .:/code
