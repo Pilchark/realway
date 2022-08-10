@@ -10,7 +10,6 @@ from pypinyin import lazy_pinyin
 from math import comb
 from datetime import datetime
 
-
 def test_version():
     assert __version__ == '0.1.0'
 
@@ -18,8 +17,6 @@ def test_config_city_name():
     """test if city CN name equal to EN name
     """
     city = conf["city"]
-    print(city.keys())
-
     for i in city.keys():
         name = city[i]["name"]
         check_name = "".join(lazy_pinyin(name))
@@ -54,4 +51,3 @@ def test_data_store_dir():
     time = datetime.now().strftime("%Y-%m-%d")
     valid_path = pathlib.Path(__file__).parent.parent
     assert str(valid_path) == base_dir
-

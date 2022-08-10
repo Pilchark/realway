@@ -14,10 +14,10 @@ today = datetime.now().strftime("%Y-%m-%d")
 def get_json_files():
     data_dir = base_dir +  "/data/" + today + "/"
     all_json_file = os.listdir(data_dir)
-    l = []
+    data_list = []
     for i in all_json_file:
-        l.append(data_dir + i)
-    return l
+        data_list.append(data_dir + i)
+    return data_list
 
 def json_to_dict(data):
     with open(data, "r") as f:
@@ -30,11 +30,19 @@ def insert_data_to_mongo(data):
     col = db[today]
     col.insert_one(data).inserted_id
 
+def insert_multi_data_to_mongo(data):
+    client = MongoClient('mongodb://test:123456@localhost:27017/')
+    db = client['realway']
+    col = db[today]
+    col.insert_many(data)
+
 def main():
     all_json_file = get_json_files()
+    all_data = []
     for i in all_json_file:
         data = json_to_dict(i)
-        insert_data_to_mongo(data)
+        all_data.append(data)
+    insert_multi_data_to_mongo(all_data)
 
 if __name__ == "__main__":
     main()
