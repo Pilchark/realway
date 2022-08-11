@@ -30,19 +30,13 @@ def combination_all_city():
 
 
 def get_api_data(start, end):
-    """get all trips from start to end 
+    """get all trips from start to end(single json string)
     """
     t_args = {f"start": start, "end": end, "key": key}
     r = requests.post(f'{url}', params=t_args)
     text = r.text
     res = json.loads(text)
-    return start, end, res
-
-def get_all_api_data(list):
-    #TODOs
-    for s,e in list:
-        start, end, res = get_api_data(s,e)
-        export_json_data(start, end, res)
+    return res
 
 def export_json_data(start, end, res):
     """export api data to json file
@@ -60,7 +54,9 @@ def export_json_data(start, end, res):
 
 def main():
     all_trip = combination_all_city()
-    get_all_api_data(all_trip)
+    for start, end in all_trip:
+        res = get_api_data(start, end)
+        export_json_data(start, end, res)
 
 if __name__ == "__main__":
     main()

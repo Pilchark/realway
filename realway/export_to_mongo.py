@@ -22,6 +22,8 @@ def get_json_files():
 def json_to_dict(data):
     with open(data, "r") as f:
         data = json.load(f)
+        if data.get('status',"None") == "203":
+            return None
         return data
 
 def insert_data_to_mongo(data):
@@ -41,7 +43,8 @@ def main():
     all_data = []
     for i in all_json_file:
         data = json_to_dict(i)
-        all_data.append(data)
+        if data != None:
+            all_data.append(data)
     insert_multi_data_to_mongo(all_data)
 
 if __name__ == "__main__":
