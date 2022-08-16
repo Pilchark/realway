@@ -1,22 +1,22 @@
 FROM python:3.9-slim-buster
+
 LABEL maintainer="xq_work@outlook.com"
 
-RUN pip install poetry
-
 ENV PYTHONUNBUFFERED=1
-
-ENV TZ=Asia/Shanghai \
-    DEBIAN_FRONTEND=noninteractive
-
-RUN apt update \
-    && apt install -y tzdata \
-    && ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime \
-    && echo ${TZ} > /etc/timezone \
-    && dpkg-reconfigure --frontend noninteractive tzdata \
-    && rm -rf /var/lib/apt/lists/*
+ENV GROUP_ID=1000 \
+    USER_ID=1000
 
 RUN mkdir /code
 WORKDIR /code
 COPY . /code/
 
-RUN poetry install
+RUN pip install -r requirements.txt
+
+# ENTRYPOINT [ "python" ]
+
+# CMD ["realway/app.py" ]
+
+# RUN poetry install
+
+# EXPOSE 3000
+# CMD [ "gunicorn", "-w", "4", "--bind", "0.0.0.0:5000", "wsgi"]

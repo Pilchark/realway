@@ -1,16 +1,25 @@
 version: "3.8"
 
 services:
-  web:
+  app:
     build: .
-    image: realway-tickets
-    command: poetry run python application.py
+    image: xq/realway
+    command: flask run -h 0.0.0.0 -p 3000
+    volumes:
+      - .:/code
+    depends_on:
+      - mongodb
+    ports:
+      - 3000:3000
+
+  mongodb:
+    image: mongo:4.2
+    # hostname: mongodb
+    environment:
+    - MONGO_INITDB_DATABASE=realway
+    - MONGO_INITDB_ROOT_USERNAME=test
+    - MONGO_INITDB_ROOT_PASSWORD=123456
     volumes:
       - .:/code
     ports:
-      - 5000:5000
-  data:
-    image: realway-tickets
-    command: poetry run python capture_congestion_data.py
-    volumes:
-      - .:/code
+      - 27017:27017
