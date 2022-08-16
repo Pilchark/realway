@@ -12,8 +12,8 @@ sys.path.append(base_dir)
 from realway.config import conf
 
 # config args
-key = conf["server"]["key"]
-url = conf["server"]["url"]
+key = conf["API"]["KEY"]
+url = conf["API"]["URL"]
 city = conf["city"]
 
 def combination_all_city():
@@ -44,7 +44,7 @@ def export_json_data(start, end, res):
     data_format = datetime.now().strftime("%Y-%m-%d")
     folder = base_dir + "/data/" + data_format + "/"
     if not os.path.exists(folder):
-        os.mkdir(folder)
+        os.makedirs(folder)
     else:
         pass
     file_path = folder + data_format + "_" + start + "_" + end +".json"

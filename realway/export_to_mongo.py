@@ -1,15 +1,17 @@
-#TODO
 import json,os,sys
-import pathlib
 from pymongo import MongoClient
-from rich import print
 import json
 from datetime import datetime
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(base_dir)
+from realway.config import conf
 
 today = datetime.now().strftime("%Y-%m-%d")
+
+mongo_url = os.getenv('MONGODB_URL')
+if mongo_url == None:
+    mongo_url = conf['mongo']['url']
 
 def get_json_files():
     data_dir = base_dir +  "/data/" + today + "/"
@@ -27,13 +29,13 @@ def json_to_dict(data):
         return data
 
 def insert_data_to_mongo(data):
-    client = MongoClient('mongodb://test:123456@localhost:27017/')
+    client = MongoClient(mongo_url)
     db = client['realway']
     col = db[today]
     col.insert_one(data).inserted_id
 
 def insert_multi_data_to_mongo(data):
-    client = MongoClient('mongodb://test:123456@localhost:27017/')
+    client = MongoClient(mongo_url)
     db = client['realway']
     col = db[today]
     col.insert_many(data)
