@@ -9,13 +9,13 @@ url = "mongodb://test:123456@127.0.0.1:27017/"
 JSON_AS_ASCII = "False"
 
 [city]
-# BeiJing = {"name" = "北京", "pinyin" = "BeiJing"}
-# ShangHai = {"name" = "上海", "pinyin" = "ShangHai"}
-# GuangZhou = {"name" = "广州", "pinyin" = "GuangZhou"}
-# ShenZhen = {"name" = "深圳", "pinyin" = "ShenZhen"}
-# ChongQing = {"name" = "重庆", "pinyin" = "ChongQing"}
-# ChengDu = {"name" = "成都", "pinyin" = "ChengDu"}
+BeiJing = {"name" = "北京", "pinyin" = "BeiJing"}
+ShangHai = {"name" = "上海", "pinyin" = "ShangHai"}
+GuangZhou = {"name" = "广州", "pinyin" = "GuangZhou"}
+ShenZhen = {"name" = "深圳", "pinyin" = "ShenZhen"}
+ChongQing = {"name" = "重庆", "pinyin" = "ChongQing"}
+ChengDu = {"name" = "成都", "pinyin" = "ChengDu"}
 SuZhou = {"name" = "苏州", "pinyin" = "SuZhou"}
 HangZhou = {"name" = "杭州", "pinyin" = "HangZhou"}
 NanJing = {"name" = "南京", "pinyin" = "NanJing"}
-# WuHan = {"name" = "武汉", "pinyin" = "WuHan"}
+WuHan = {"name" = "武汉", "pinyin" = "WuHan"}

@@ -47,7 +47,10 @@ def main():
         data = json_to_dict(i)
         if data != None:
             all_data.append(data)
-    insert_multi_data_to_mongo(all_data)
+    if len(all_data)!= 0:
+        insert_multi_data_to_mongo(all_data)
+    else:
+        print("No valid data insert")
 
 if __name__ == "__main__":
     main()
