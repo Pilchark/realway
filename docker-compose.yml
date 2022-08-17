@@ -6,6 +6,10 @@ services:
     build: .
     image: xq/realway
     command: python realway/main.py
+    environment:
+      MONGODB_URL: mongodb://test:123456@mongodb:27017/
+    volumes:
+      - .:/code
 
   app:
     build: .

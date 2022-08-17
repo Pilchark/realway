@@ -15,11 +15,14 @@ if mongo_url == None:
 
 def get_json_files():
     data_dir = base_dir +  "/data/" + today + "/"
-    all_json_file = os.listdir(data_dir)
-    data_list = []
-    for i in all_json_file:
-        data_list.append(data_dir + i)
-    return data_list
+    if not os.path.exists(data_dir):
+        raise ValueError("Path not exists")
+    else:
+        all_json_file = os.listdir(data_dir)
+        data_list = []
+        for i in all_json_file:
+            data_list.append(data_dir + i)
+        return data_list
 
 def json_to_dict(data):
     with open(data, "r") as f:
@@ -41,12 +44,18 @@ def insert_multi_data_to_mongo(data):
     col.insert_many(data)
 
 def main():
-    all_json_file = get_json_files()
+    try:
+        all_json_file = get_json_files()
+    except ValueError as e:
+        print(e)
+        all_json_file = None
+
     all_data = []
-    for i in all_json_file:
-        data = json_to_dict(i)
-        if data != None:
-            all_data.append(data)
+    if all_json_file != None:
+        for i in all_json_file:
+            data = json_to_dict(i)
+            if data != None:
+                all_data.append(data)
     if len(all_data)!= 0:
         insert_multi_data_to_mongo(all_data)
     else:
