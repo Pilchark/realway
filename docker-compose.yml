@@ -32,7 +32,6 @@ services:
     - MONGO_INITDB_DATABASE=realway
     - MONGO_INITDB_ROOT_USERNAME=test
     - MONGO_INITDB_ROOT_PASSWORD=123456
-    volumes:
-      - .:/code
+    # volumes:
     ports:
       - 27017:27017

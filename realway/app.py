@@ -22,7 +22,6 @@ def get_db():
 app = Flask(__name__)
 
 class Config(object):
-    MESSAGE = conf['mongo']['url']
     JSON_AS_ASCII = conf['app']['JSON_AS_ASCII']
 
 app.config.from_object(Config)
@@ -36,7 +35,6 @@ def index():
 @app.route("/settings")
 def get_settings():
     return {
-        "message": app.config["MESSAGE"],
         "json_format": app.config['JSON_AS_ASCII'],
     }
 
