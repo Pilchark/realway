@@ -1,4 +1,4 @@
-import json,os,sys
+import json, os, sys
 from pymongo import MongoClient
 import json
 from datetime import datetime
@@ -9,12 +9,13 @@ from realway.config import conf
 
 today = datetime.now().strftime("%Y-%m-%d")
 
-mongo_url = os.getenv('MONGODB_URL')
+mongo_url = os.getenv("MONGODB_URL")
 if mongo_url == None:
-    mongo_url = conf['mongo']['url']
+    mongo_url = conf["mongo"]["url"]
+
 
 def get_json_files():
-    data_dir = base_dir +  "/data/" + today + "/"
+    data_dir = base_dir + "/data/" + today + "/"
     if not os.path.exists(data_dir):
         raise ValueError("Path not exists")
     else:
@@ -24,24 +25,28 @@ def get_json_files():
             data_list.append(data_dir + i)
         return data_list
 
+
 def json_to_dict(data):
     with open(data, "r") as f:
         data = json.load(f)
-        if data.get('status',"None") == "203":
+        if data.get("status", "None") == "203":
             return None
         return data
 
+
 def insert_data_to_mongo(data):
     client = MongoClient(mongo_url)
-    db = client['realway']
+    db = client["realway"]
     col = db[today]
     col.insert_one(data).inserted_id
 
+
 def insert_multi_data_to_mongo(data):
     client = MongoClient(mongo_url)
-    db = client['realway']
+    db = client["realway"]
     col = db[today]
     col.insert_many(data)
+
 
 def main():
     try:
@@ -56,10 +61,11 @@ def main():
             data = json_to_dict(i)
             if data != None:
                 all_data.append(data)
-    if len(all_data)!= 0:
+    if len(all_data) != 0:
         insert_multi_data_to_mongo(all_data)
     else:
         print("No valid data insert")
+
 
 if __name__ == "__main__":
     main()
