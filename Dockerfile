@@ -12,7 +12,5 @@ RUN mkdir /code
 WORKDIR /code
 COPY . /code/
 
-RUN pip install -r requirements.txt
-
-# RUN pip install -i https://mirrors.cloud.tencent.com/pypi/simple -U pip
-# RUN pip install -i https://mirrors.cloud.tencent.com/pypi/simple -r requirements.txt
+RUN pip install -i https://mirrors.cloud.tencent.com/pypi/simple -U pip
+RUN pip install -i https://mirrors.cloud.tencent.com/pypi/simple -r requirements.txt
