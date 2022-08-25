@@ -48,9 +48,9 @@ def get_one():
             "end":res["result"]["end"], 
             "nums":len(res["result"]["list"])
             }
+        return jsonify(output)
     except:
         return "fetch data failed!"
-    return jsonify(output)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000)
