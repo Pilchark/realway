@@ -8,7 +8,7 @@ sys.path.append(base_dir)
 from realway.config import conf
 
 today = datetime.now().strftime("%Y-%m-%d")
-
+today = "2022-08-26"
 mongo_url = os.getenv("MONGODB_URL")
 if mongo_url == None:
     mongo_url = conf["mongo"]["url"]

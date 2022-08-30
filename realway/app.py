@@ -1,13 +1,15 @@
+from ast import arg
 from datetime import datetime
 import os, sys
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from pymongo import MongoClient
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(base_dir)
 from realway.config import conf
+from realway.fetcher import Fetcher
 
-# today = datetime.now().strftime("%Y-%m-%d")
+app = Flask(__name__)
 
 
 def get_db():
@@ -21,14 +23,13 @@ def get_db():
     return db
 
 
-app = Flask(__name__)
-
-
 class Config(object):
-    JSON_AS_ASCII = conf["app"]["JSON_AS_ASCII"]
+    JSON_AS_ASCII = False
 
 
 app.config.from_object(Config)
+
+fetcher = Fetcher()
 
 # app route
 
@@ -48,19 +49,32 @@ def get_settings():
 @app.route("/api/day/<datetime>/")
 def api_day(datetime):
     try:
-        db = get_db()
-        results = db[datetime].find()
-        l = []
-        for res in results:
-            output = {
-                "start": res["result"]["start"],
-                "end": res["result"]["end"],
-                "lines": len(res["result"]["list"]),
-            }
-            l.append(output)
-        return jsonify(l)
+        # db = get_db()
+        # results = db[datetime].find()
+        # l = []
+        # for res in results:
+        #     output = {
+        #         "start": res["result"]["start"],
+        #         "end": res["result"]["end"],
+        #         "lines": len(res["result"]["list"]),
+        #     }
+        #     l.append(output)
+        # return jsonify(l)
+        return datetime
     except:
         return "fetch data failed!"
+
+
+@app.route('/search', methods=['GET'])
+def search():
+    args = request.args
+    datetime = args.get("datetime", None)
+    start = args.get("start", None)
+    end = args.get("end", None)
+    return fetcher.get_data_by_detail(
+            datetime=datetime,
+            start=start,
+            end=end)
 
 
 if __name__ == "__main__":
