@@ -65,16 +65,32 @@ def api_day(datetime):
         return "fetch data failed!"
 
 
-@app.route('/search', methods=['GET'])
+@app.route("/search", methods=["GET"])
 def search():
+    """
+    search date from mongodb
+    args:
+        start (required): "北京"
+        end (required): "上海"
+        datetime (optional): YYYY-MM-DD
+    """
     args = request.args
     datetime = args.get("datetime", None)
     start = args.get("start", None)
     end = args.get("end", None)
-    return fetcher.get_data_by_detail(
-            datetime=datetime,
-            start=start,
-            end=end)
+    return fetcher.get_one_way_data(datetime=datetime, start=start, end=end)
+
+
+@app.route("/login", methods=["POST", "GET"])
+def login():
+    if request.method == "POST":
+        user = request.form["name"]
+        return user
+    #   return redirect(url_for('dashboard',name = user))
+    else:
+        user = request.args.get("name")
+        #   return render_template('login.html')
+        return user
 
 
 if __name__ == "__main__":

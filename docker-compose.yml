@@ -33,6 +33,6 @@ services:
     - MONGO_INITDB_ROOT_USERNAME=test
     - MONGO_INITDB_ROOT_PASSWORD=123456
     volumes:
-      - ./data:/data/db
+      - ./data/mongodb:/data/db
     ports:
       - 27017:27017

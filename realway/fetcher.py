@@ -8,13 +8,11 @@ from datetime import datetime
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(base_dir)
-from realway.config import conf
+from realway.config import conf, year, today
 from bson.objectid import ObjectId
 
-today = datetime.now().strftime("%Y-%m-%d")
 
 class Fetcher(object):
-
     def __init__(self) -> None:
         self.mongo_url = os.getenv("MONGODB_URL")
         if self.mongo_url == None:
@@ -33,56 +31,53 @@ class Fetcher(object):
         }
         return output
 
-
-    def get_data_by_detail(self, datetime, start=None, end=None):
+    def get_one_way_data(self, start, end, datetime=None):
         try:
-            q = self.db[datetime]
-            if None not in (start, end):
-                res = q.find_one(
-                    {"result.start": start,
-                    "result.end": end,
-                    })
+            if None in (start, end):
+                return None
+
+            col = self.db[year]
+            
+            if datetime is not None:
+                res = col.find_one(
+                    {
+                        "result.date": datetime,
+                        "result.start": start,
+                        "result.end": end,
+                    }
+                )
                 output = {
-                "start": res["result"]["start"],
-                "end": res["result"]["end"],
-                "results": res["result"]["list"],
-            }
+                    "start": res["result"]["start"],
+                    "end": res["result"]["end"],
+                    "results": res["result"]["list"],
+                }
                 return output
-            elif start is not None:
-                res = q.find(
-                    {"result.start": start,
-                    })
-                count = q.count_documents({
-                    "result.start": start,
-                    })
+            elif (datetime is None) and (None not in (start, end)):
+                res = col.find(
+                    {
+                        "result.start": start,
+                        "result.end": end,
+                    }
+                )
+                count = col.count_documents(
+                    {
+                        "result.start": start,
+                        "result.end": end,
+                    }
+                )
                 res_list = []
                 for i in res:
                     output = {
-                    "start": i["result"]["start"],
-                    "end": i["result"]["end"],
-                    "results": i["result"]["list"],
+                        "start": start,
+                        "end": end,
+                        "date": i["result"]["date"],
+                        "results": i["result"]["list"],
                     }
                     res_list.append(output)
-                return res_list
-            elif end is not None:
-                res = q.find(
-                    {"result.end": end,
-                    })
-                count = q.count_documents({
-                    "result.end": end,
-                    }) 
-                res_list = []
-                for i in res:
-                    output = {
-                    "start": i["result"]["start"],
-                    "end": i["result"]["end"],
-                    "results": i["result"]["list"],
-                    }
-                    res_list.append(output)
+                print(f"all result counts = {count}")
                 return res_list
             else:
-                res = q.find()
-                count = q.count_documents({})
+                count = col.count_documents({})
                 return count
 
         except Exception as e:
@@ -90,13 +85,16 @@ class Fetcher(object):
 
 
 def main():
-    fetcher = Fetcher()
-    # print(fetcher.mongo_url)
-    res = fetcher.get_data_by_detail(datetime='2022-08-26',
-    )
-    print(res)
+    pass
+    # fetcher = Fetcher()
+    # # print(fetcher.mongo_url)
+    # res = fetcher.get_data_by_detail(
+    #     datetime="2022-08-26",
+    # )
+    # print(res)
     # for i in res:
-        # print(i)
+    # print(i)
+
 
 if __name__ == "__main__":
     main()

@@ -1,13 +1,11 @@
 import json, os, sys
 from pymongo import MongoClient
 import json
-from datetime import datetime
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(base_dir)
-from realway.config import conf
+from realway.config import conf, year, today
 
-today = datetime.now().strftime("%Y-%m-%d")
 mongo_url = os.getenv("MONGODB_URL")
 if mongo_url == None:
     mongo_url = conf["mongo"]["url"]
@@ -36,14 +34,14 @@ def json_to_dict(data):
 def insert_data_to_mongo(data):
     client = MongoClient(mongo_url)
     db = client["realway"]
-    col = db[today]
+    col = db[year]
     col.insert_one(data).inserted_id
 
 
 def insert_multi_data_to_mongo(data):
     client = MongoClient(mongo_url)
     db = client["realway"]
-    col = db[today]
+    col = db[year]
     col.insert_many(data)
 
 
