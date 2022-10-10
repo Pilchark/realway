@@ -15,3 +15,7 @@ if mongo_url == None:
 
 year = datetime.now().strftime("%Y")
 today = datetime.now().strftime("%Y-%m-%d")
+
+class Config(object):
+    JSON_AS_ASCII = False
+    SECRET_KEY = "LongAndRandomSecretKey"

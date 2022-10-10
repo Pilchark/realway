@@ -15,6 +15,7 @@ services:
     build: .
     image: xq/realway
     command: flask run -h 0.0.0.0 -p 3000
+    # command: gunicorn -b :3000 realway.app:app
     environment:
       MONGODB_URL: mongodb://test:123456@mongodb:27017/
       FLASK_DEBUG: 1
