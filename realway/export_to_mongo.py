@@ -22,6 +22,21 @@ def get_json_files():
             data_list.append(data_dir + i)
         return data_list
 
+def get_all_json_files():
+    data_dir = base_dir + "/data/"
+    if not os.path.exists(data_dir):
+        raise ValueError("Path not exists")
+    else:
+        data_list = []
+        all_json_dirs = os.listdir(data_dir)
+        data_dir_list = []
+        for i in all_json_dirs:
+            data_dir_list.append(data_dir + i)
+        for data_dir in data_dir_list:
+            all_json_file = os.listdir(data_dir)
+            for i in all_json_file:
+                data_list.append(data_dir + i)
+        return data_list
 
 def json_to_dict(data):
     with open(data, "r") as f:
