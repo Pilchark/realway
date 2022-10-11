@@ -23,7 +23,7 @@
     },
     tooltip: {},
     legend: {
-      data: ['Price']
+      data: ['ed','yd','sw', "ds"]
     },
     xAxis: {
       data: [
@@ -35,11 +35,29 @@
     yAxis: {},
     series: [
       {
-        name: 'Price',
+        name: 'ed',
+        type: 'bar',
+        data: [
+          {% for item in values %}
+            "{{ item[3] }}",
+          {% endfor %}
+        ]
+      },
+      {
+        name: 'yd',
         type: 'bar',
         data: [
           {% for item in values %}
             "{{ item[4] }}",
+          {% endfor %}
+        ]
+      },
+      {
+        name: 'sw',
+        type: 'bar',
+        data: [
+          {% for item in values %}
+            "{{ item[5] }}",
           {% endfor %}
         ]
       }
