@@ -9,3 +9,10 @@ formatter = logging.Formatter(
 )
 handler.setFormatter(formatter)
 logger.addHandler(handler)
+
+# usage
+# logger.debug('A debug message')
+# logger.info('An info message')
+# logger.warning('There is something wrong')
+# logger.error('An error has happened.')
+# logger.critical('Fatal error occured. Cannot continue')

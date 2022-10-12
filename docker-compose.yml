@@ -2,38 +2,41 @@ version: "3.8"
 
 services:
 
-  data_fetch:
-    build: .
-    image: xq/realway
-    command: python realway/main.py
-    environment:
-      MONGODB_URL: mongodb://test:123456@mongodb:27017/
-    volumes:
-      - .:/code
+  # data_fetch:
+  #   build: .
+  #   image: xq/realway
+  #   command: python realway/main.py
+  #   environment:
+  #     MONGODB_URL: mongodb://test:123456@mongodb:27017/
+  #   volumes:
+  #     - .:/code
 
-  app:
-    build: .
-    image: xq/realway
-    command: flask run -h 0.0.0.0 -p 3000
-    # command: gunicorn -b :3000 realway.app:app
-    environment:
-      MONGODB_URL: mongodb://test:123456@mongodb:27017/
-      FLASK_DEBUG: 1
-      FLASK_APP: realway.app
-    volumes:
-      - .:/code
-    depends_on:
-      - mongodb
-    ports:
-      - 3000:3000
+  # app:
+  #   build: .
+  #   image: xq/realway
+  #   command: flask run -h 0.0.0.0 -p 3000
+  #   # command: gunicorn -b :3000 realway.app:app
+  #   environment:
+  #     MONGODB_URL: mongodb://test:123456@mongodb:27017/
+  #     FLASK_DEBUG: 1
+  #     FLASK_APP: realway.app
+  #   volumes:
+  #     - .:/code
+  #   depends_on:
+  #     - mongodb
+  #   ports:
+  #     - 3000:3000
 
   mongodb:
     image: mongo:4.2
     environment:
     - MONGO_INITDB_DATABASE=realway
-    - MONGO_INITDB_ROOT_USERNAME=test
-    - MONGO_INITDB_ROOT_PASSWORD=123456
+    - MONGO_INITDB_ROOT_USERNAME=root
+    - MONGO_INITDB_ROOT_PASSWORD=v9Wv84rHB92WrFEhl5lZWb5x
     volumes:
-      - ./data/mongodb:/data/db
+      - mongo_data:/data/db
     ports:
       - 27017:27017
+
+volumes:
+  mongo_data:

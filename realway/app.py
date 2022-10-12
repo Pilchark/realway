@@ -48,8 +48,9 @@ def api_search_one_day():
         start = args.get("start", None)
         end = args.get("end", None)
         res = fetcher.get_one_way_data(datetime=datetime, start=start, end=end)
+        return res
     else:
-        sample_data = os.path.join(base_dir, "data/sample.json")
+        sample_data = os.path.join(base_dir, "sample.json")
         with open(sample_data, "r") as f:
             res = json.load(f)
 
@@ -69,7 +70,7 @@ def api_search_one_day():
     df = pd.DataFrame(np_data, columns=col)
     df = df.drop(df.columns[[8,9,10,11,12]], axis=1)
     # return df.to_dict()
-    df_html = df.to_html(classes="ui celled table")
+    df_html = df.to_html(classes="ui celled table", table_id="data")
     return render_template('table.html', table=df_html, title="test Title")
 
 

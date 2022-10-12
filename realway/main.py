@@ -15,7 +15,7 @@ def run():
 
 def save():
     logger.info("running export to mongo..")
-    export_to_mongo.main()
+    export_to_mongo.insert_daily_data()
 
 
 schedule.every().day.at("00:05").do(run)
