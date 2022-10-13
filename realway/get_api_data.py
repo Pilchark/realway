@@ -9,7 +9,7 @@ from rich import print
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(base_dir)
-from realway.config import conf
+from realway.config import conf, today
 
 # config args
 key = conf["API"]["KEY"]
@@ -40,13 +40,12 @@ def get_api_data(start, end):
 
 def export_json_data(start, end, res):
     """export api data to json file"""
-    data_format = datetime.now().strftime("%Y-%m-%d")
-    folder = base_dir + "/data/" + data_format + "/"
+    folder = base_dir + "/data/" + today + "/"
     if not os.path.exists(folder):
         os.makedirs(folder)
     else:
         pass
-    file_path = folder + data_format + "_" + start + "_" + end + ".json"
+    file_path = folder + today + "_" + start + "_" + end + ".json"
     with open(file_path, "w", encoding="utf-8") as f:
         json.dump(res, f, ensure_ascii=False)
     return file_path

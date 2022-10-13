@@ -32,13 +32,9 @@ class Fetcher(object):
         return output
 
     def get_one_way_data(self, start, end, datetime=None):
-        try:
-            if None in (start, end):
-                return None
-
-            col = self.db[year]
-            
-            if datetime is not None:
+        col = self.db[year]
+        if datetime is not None:
+            try:
                 res = col.find_one(
                     {
                         "result.date": datetime,
@@ -52,7 +48,10 @@ class Fetcher(object):
                     "results": res["result"]["list"],
                 }
                 return output
-            elif (datetime is None) and (None not in (start, end)):
+            except:
+                return None
+        else:
+            try:
                 res = col.find(
                     {
                         "result.start": start,
@@ -76,25 +75,9 @@ class Fetcher(object):
                     res_list.append(output)
                 print(f"all result counts = {count}")
                 return res_list
-            else:
-                count = col.count_documents({})
-                return count
-
-        except Exception as e:
-            raise Exception("date not found")
-
-
-def main():
-    pass
-    # fetcher = Fetcher()
-    # # print(fetcher.mongo_url)
-    # res = fetcher.get_data_by_detail(
-    #     datetime="2022-08-26",
-    # )
-    # print(res)
-    # for i in res:
-    # print(i)
+            except:
+                return None
 
 
 if __name__ == "__main__":
-    main()
+    pass

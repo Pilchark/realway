@@ -3,7 +3,7 @@ KEY = "9U2cUUZhHEqLZx5cx5G2owkd7"
 URL = "https://binstd.apistd.com/train/station2s"
 
 [mongo]
-url = "mongodb://test:123456@127.0.0.1:27017/"
+url = "mongodb://root:v9Wv84rHB92WrFEhl5lZWb5x@127.0.0.1:27017/"
 
 [app]
 JSON_AS_ASCII = "False"

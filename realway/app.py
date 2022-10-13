@@ -47,8 +47,16 @@ def api_search_one_day():
         datetime = args.get("datetime", None)
         start = args.get("start", None)
         end = args.get("end", None)
+        if None in (start, end):
+            return {"status": 400,
+                    "msg":  "start or end should not be Empty !"}
         res = fetcher.get_one_way_data(datetime=datetime, start=start, end=end)
-        return res
+        if res is None:
+            return {"status": 400,
+                    "msg":  "Data not Found !"}
+        else:
+            return {"status": 200,
+                    "data": res}
     else:
         sample_data = os.path.join(base_dir, "sample.json")
         with open(sample_data, "r") as f:

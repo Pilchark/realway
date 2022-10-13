@@ -72,4 +72,4 @@ def insert_daily_data():
     insert_many_to_mongo(all_json_file)
 
 if __name__ == "__main__":
-    insert_all_data()
+    insert_daily_data()
