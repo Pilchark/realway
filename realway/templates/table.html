@@ -4,9 +4,11 @@
 {{title}}
 {% endblock %}
 
-{% block script %}
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+{% block head %}
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"> -->
+<!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script> -->
+<link rel="stylesheet" href="{{ url_for('static', filename='jquery.dataTables.css') }}"/>
+<script src="{{url_for('static', filename='jquery.dataTables.js')}}"></script>
 {% endblock %}
 
 {% block content %}
@@ -15,7 +17,7 @@
 </div>
 {% endblock %}
 
-{% block js %}
+{% block script %}
   <script>
     $(document).ready(function () {
       $('#data').DataTable();

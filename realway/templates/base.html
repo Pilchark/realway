@@ -9,23 +9,23 @@
   <script src="{{url_for('static', filename='jquery-3.1.1.min.js')}}"></script>
   <script src="{{url_for('static', filename='semantic.min.js')}}"></script>
 
-  {% block script %}{% endblock %}
+  {% block head %}{% endblock %}
 
 </head>
 
 <body>
-  <nav>
-    <a href="{{ url_for('index') }}">Home</a>
-    <a href="{{ url_for('index') }}">Create</a>
-    <a href="#">About</a>
-  </nav>
-  <hr>
   <center>
-    <!-- <div class="content"> -->
-      {% block content %} {% endblock %}
-    <!-- </div> -->
+    <nav>
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('index') }}">Create</a>
+      <a href="#">About</a>
+    </nav>
+    <hr>
   </center>
-  {% block js %} {% endblock %}
+  <center>
+    {% block content %} {% endblock %}
+  </center>
+  {% block script %} {% endblock %}
 </body>
 
 </html>

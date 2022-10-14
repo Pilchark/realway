@@ -18,7 +18,7 @@ services:
     # command: gunicorn -b :3000 realway.app:app
     environment:
       MONGODB_URL: mongodb://root:v9Wv84rHB92WrFEhl5lZWb5x@mongodb:27017/
-      FLASK_DEBUG: 1
+      FLASK_DEBUG: 0
       FLASK_APP: realway.app
     volumes:
       - .:/code
