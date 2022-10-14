@@ -75,7 +75,7 @@ def api_search_one_day():
         with open(sample_data, "r") as f:
             res = json.load(f)
 
-    res = res["result"]["list"]
+    res = res["results"]
     length = len(res)
     width = 30
     np_data = np.full((length, width), np.NaN, dtype="U20")
