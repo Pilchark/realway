@@ -38,7 +38,7 @@ def index():
         #     url_for("test", data)
         # )
         return redirect(
-            url_for("api_search_one_day", date=date, start=start_s, end=end_s)
+            url_for("api_search_one_day", datetime=date, start=start_s, end=end_s)
         )
 
     return render_template("index.html", title="Home", form=form)
