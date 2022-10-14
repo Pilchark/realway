@@ -68,7 +68,8 @@ def api_search_one_day():
         if res is None:
             return {"status": 400, "msg": "Data not Found !"}
         else:
-            return {"status": 200, "data": res}
+            # return {"status": 200, "data": res}
+            pass
     else:
         sample_data = os.path.join(base_dir, "sample.json")
         with open(sample_data, "r") as f:
