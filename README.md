@@ -25,4 +25,5 @@ Release History
 
 #TODO
 
-- [] multi thread get api data.
+- [ ] multi thread get api data.
+- [ ] 设置 http 自动跳转为 https

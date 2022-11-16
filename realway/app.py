@@ -1,4 +1,3 @@
-from ast import arg
 import json
 import os, sys
 import re
@@ -10,7 +9,7 @@ from rich import print
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(base_dir)
-from realway.config import Config
+from realway.config import Config, conf
 from realway.fetcher import Fetcher
 from realway.model import ExampleForm
 
@@ -47,6 +46,15 @@ def index():
 def test():
     args = request.args
     return args.get("data",None)
+
+@app.route("/api/cities", methods=["GET"])
+def api_cities():
+    cities = conf["city"]
+    res = []
+    for i in iter(cities):
+        res.append(cities[i]["name"])
+    return res
+
 
 @app.route("/api/search", methods=["GET"])
 def api_search_one_day():
@@ -104,6 +112,14 @@ def chart_sample():
 def element_sample():
     return render_template("element_sample.html")
 
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000, debug=True)
