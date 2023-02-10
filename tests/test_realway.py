@@ -1,6 +1,7 @@
 import pathlib,os
 from realway import __version__
 from realway.config import conf
+from realway.logger import logger
 from realway.get_api_data import (
     combination_all_city,
     export_json_data,
@@ -21,6 +22,7 @@ def test_config_city_name():
         name = city[i]["name"]
         check_name = "".join(lazy_pinyin(name))
         pinyin = str(city[i]["pinyin"]).lower()
+        logger.info(f"checking {check_name} == {pinyin}")
         assert check_name == pinyin
 
 def test_all_combination_num():
